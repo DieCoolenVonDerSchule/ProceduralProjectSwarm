@@ -1,0 +1,37 @@
+version: '3'
+services:
+  queen:
+    image: queenimage
+    build:
+      context: ./queen/image/
+      dockerfile: ./Dockerfile
+    container_name: c_queen
+    networks:
+      - galaxynet
+    tty: true
+    volumes:
+      - vol_queen:/var/lib/queen
+      
+  hive:
+    image: hiveimage
+    build:
+      context: ./hive/image/
+      dockerfile: ./Dockerfile
+    container_name: c_hive
+    ports:
+      - 8765:8765
+    networks:
+      - galaxynet
+    restart: always
+    volumes:
+      - vol_hive:/var/lib/hive
+      
+networks:
+  galaxynet:
+volumes:
+  vol_queen:
+  vol_hive:
+
+
+
+        
